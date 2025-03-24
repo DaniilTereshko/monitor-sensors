@@ -54,14 +54,14 @@ public class RestExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(ResourceNotFoundException ex, Locale locale){
         var message = messageSource.getMessage(ex.getMessage(), null, locale);
-        var response = new ErrorResponse(ErrorCode.USER_ERROR.name(), message);
+        var response = ErrorResponse.of(ErrorCode.USER_ERROR.name(), message);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponse> handleBadRequest(Locale locale) {
         var message = messageSource.getMessage(ExceptionMessage.REQUEST_NOT_READABLE, null, locale);
-        var response = new ErrorResponse(ErrorCode.USER_ERROR.name(), message);
+        var response = ErrorResponse.of(ErrorCode.USER_ERROR.name(), message);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -69,7 +69,7 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInnerError(Exception ex, Locale locale) {
         ex.printStackTrace(); // для отладки
         var message = messageSource.getMessage(ExceptionMessage.SERVER_INTERNAL_ERROR, null, locale);
-        var response = new ErrorResponse(ErrorCode.SERVER_ERROR.name(), message);
+        var response = ErrorResponse.of(ErrorCode.SERVER_ERROR.name(), message);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
