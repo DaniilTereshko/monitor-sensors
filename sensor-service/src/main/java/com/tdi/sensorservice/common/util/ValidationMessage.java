@@ -21,5 +21,7 @@ public final class ValidationMessage {
     public static final String RANGE_FROM_POSITIVE = "validation.sensor.range.from.positive";
     public static final String RANGE_TO_POSITIVE = "validation.sensor.range.to.positive";
     public static final String RANGE_FROM_LESS_THAN_TO = "validation.sensor.range.from_less_than_to";
+    public static final String RANGE_FROM_IS_NULL = "validation.sensor.range.from.empty";
+    public static final String RANGE_TO_IS_NULL = "validation.sensor.range.to.empty";
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -53,6 +54,7 @@ public class SensorController {
             description = "Позволяет создать датчик"
     )
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<SensorDto> create(@Validated(OnCreate.class) @RequestBody SensorDto request) {
         var sensor = sensorService.create(request);
         var dto = sensorMapper.toDto(sensor);
@@ -65,6 +67,7 @@ public class SensorController {
             description = "Позволяет удалить датчик по указанному идентификатору"
     )
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> delete(
             @Parameter(description = "Идентификатор", required = true)
             @PathVariable

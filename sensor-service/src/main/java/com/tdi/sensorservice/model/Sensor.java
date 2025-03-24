@@ -7,6 +7,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,11 +36,12 @@ public class Sensor {
     @Convert(converter = ObjectConverter.class)
     private RangeDto range;
 
-    @Column(nullable = false)
     @OneToOne
+    @JoinColumn(name = "type", nullable = false)
     private Type type;
 
     @OneToOne
+    @JoinColumn(name = "unit")
     private Unit unit;
 
     private String location;

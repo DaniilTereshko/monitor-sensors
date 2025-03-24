@@ -3,15 +3,14 @@ package com.tdi.sensorservice.web.dto;
 import com.tdi.sensorservice.web.dto.marker.OnCreate;
 import com.tdi.sensorservice.web.dto.marker.OnUpdate;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Map;
 import java.util.UUID;
 
 import static com.tdi.sensorservice.common.util.ValidationMessage.*;
@@ -47,10 +46,11 @@ public class SensorDto {
     )
     private String model;
 
-    @NotEmpty(message = RANGE_FIELD_IS_EMPTY)
+    @NotNull(message = RANGE_FIELD_IS_EMPTY, groups = {OnCreate.class, OnUpdate.class})
     @Schema(
             description = "Радиус работы",
             requiredMode = Schema.RequiredMode.REQUIRED)
+    @Valid
     private RangeDto range;
 
     @NotBlank(message = TYPE_FIELD_IS_EMPTY)

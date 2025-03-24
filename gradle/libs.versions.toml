@@ -2,7 +2,7 @@
 spring-boot = "3.4.3"
 lombok = "8.10.2"
 mapstruct-version = "1.6.3"
-swagger = "2.6.0"
+swagger = "2.7.0"
 
 [libraries]
 # Spring #
