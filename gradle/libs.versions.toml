@@ -2,6 +2,7 @@
 spring-boot = "3.4.3"
 lombok = "8.10.2"
 mapstruct-version = "1.6.3"
+swagger = "2.6.0"
 
 [libraries]
 # Spring #
@@ -9,7 +10,9 @@ spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gra
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "swagger" }
 # Database #
 liquibase-core = { module = "org.liquibase:liquibase-core" }
 driver-postgresql = { module = "org.postgresql:postgresql" }
