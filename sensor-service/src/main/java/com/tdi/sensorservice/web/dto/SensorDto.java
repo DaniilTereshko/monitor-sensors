@@ -50,9 +50,8 @@ public class SensorDto {
     @NotEmpty(message = RANGE_FIELD_IS_EMPTY)
     @Schema(
             description = "Радиус работы",
-            example = "{\"from\": 50, \"to\": 200}",
             requiredMode = Schema.RequiredMode.REQUIRED)
-    private Map<String, Integer> range;
+    private RangeDto range;
 
     @NotBlank(message = TYPE_FIELD_IS_EMPTY)
     @Schema(

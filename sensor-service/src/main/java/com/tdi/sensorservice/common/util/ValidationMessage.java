@@ -18,5 +18,8 @@ public final class ValidationMessage {
     public static final String TYPE_FIELD_IS_EMPTY = "validation.sensor.type.empty";
     public static final String LOCATION_INCORRECT_LENGTH = "validation.sensor.location.incorrect_length";
     public static final String DESCRIPTION_INCORRECT_LENGTH = "validation.sensor.description.incorrect_length";
+    public static final String RANGE_FROM_POSITIVE = "validation.sensor.range.from.positive";
+    public static final String RANGE_TO_POSITIVE = "validation.sensor.range.to.positive";
+    public static final String RANGE_FROM_LESS_THAN_TO = "validation.sensor.range.from_less_than_to";
 
 }

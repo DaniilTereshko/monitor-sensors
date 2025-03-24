@@ -1,14 +1,18 @@
 package com.tdi.sensorservice.model;
 
+import com.tdi.sensorservice.model.converter.ObjectConverter;
+import com.tdi.sensorservice.web.dto.RangeDto;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -27,7 +31,9 @@ public class Sensor {
     private String model;
 
     @Column(nullable = false)
-    private Map<String, Integer> range;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Convert(converter = ObjectConverter.class)
+    private RangeDto range;
 
     @Column(nullable = false)
     @OneToOne
