@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="003_create_sensor_table" author="tdi">
+        <createTable tableName="sensor">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="range" type="jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="integer">
+                <constraints nullable="false" foreignKeyName="fk_type_sensor" referencedTableName="type"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="unit" type="integer">
+                <constraints foreignKeyName="fk_unit_sensor" referencedTableName="type"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="location" type="varchar(40)"/>
+            <column name="description" type="varchar(200)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
