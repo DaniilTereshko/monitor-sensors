@@ -58,11 +58,16 @@ public class SensorDto {
     @Schema(
             description = "Тип",
             example = "Temperature",
-            requiredMode = Schema.RequiredMode.REQUIRED
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            allowableValues = {"Pressure", "Voltage", "Temperature", "Humidity"}
     )
     private String type;
 
-    @Schema(description = "Единица измерения", example = "°С")
+    @Schema(
+            description = "Единица измерения",
+            example = "°С",
+            allowableValues = {"bar", "voltage", "°С", "%"}
+    )
     private String unit;
 
     @Length(max = 40, message = LOCATION_INCORRECT_LENGTH)
