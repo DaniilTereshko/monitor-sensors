@@ -1,0 +1,3 @@
+id,name,username,password,role
+16146b4d-30e3-4ccf-b9a7-10cd82f1645a,John Doe,viewer,$2a$10$nGUBgP06PzybX1EN1Z27rOwbZUd3oLKepwGhieDbdXGc9qlYvlcoe,VIEWER
+d2e04094-88d8-4f89-84ca-9cad4007009f,Jane Smith,admin,$2a$10$98VeWbItIQBl8s.zIjETnePqt8.QSHGWz2x7xj0c.rS1dq/reOo4.,ADMIN
