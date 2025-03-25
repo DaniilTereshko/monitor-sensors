@@ -17,3 +17,8 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
     enabled: true
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-duration: ${JWT_ACCESS_DURATION}
+    refresh-duration: ${JWT_REFRESH_DURATION}

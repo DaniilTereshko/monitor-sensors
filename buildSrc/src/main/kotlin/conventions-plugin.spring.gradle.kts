@@ -10,4 +10,5 @@ val libs = extensions.getByType<VersionCatalogsExtension>()
 
 dependencies {
     implementation(platform(libs.findLibrary("spring-boot-dependencies").get()))
+    implementation(platform(libs.findLibrary("spring-cloud-dependencies").get()))
 }
