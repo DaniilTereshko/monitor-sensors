@@ -1,0 +1,22 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "UserService DB",
+      "Group": "Server Group",
+      "Port": 5432,
+      "Username": "postgres",
+      "Host": "user-db",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres"
+    },
+    "2": {
+      "Name": "SensorService DB",
+      "Group": "Server Group",
+      "Port": 5432,
+      "Username": "postgres",
+      "Host": "sensor-db",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres"
+    }
+  }
+}
