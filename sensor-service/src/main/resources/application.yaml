@@ -5,11 +5,11 @@ spring:
   application:
     name: sensor-service
   config:
-    import: optional:file:example.env[.properties]
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:postgresql://${HOST}/${POSTGRES_DB}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${HOST_SENSOR}/${POSTGRES_SENSOR_DB}
+    username: ${POSTGRES_SENSOR_USERNAME}
+    password: ${POSTGRES_SENSOR_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
