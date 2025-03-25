@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @Tag(name = "Датчик", description = "Контроллер для базовых операций над датчиками")
+@Validated
 @RestController
 @RequestMapping("/api/v1/sensor")
 @RequiredArgsConstructor
@@ -51,11 +52,11 @@ public class SensorController {
 
     @Operation(
             summary = "Создание датчика",
-            description = "Позволяет создать датчик"
+            description = "Позволяет создать датчик. При создании id передается как null"
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<SensorDto> create(@Validated(OnCreate.class) @RequestBody SensorDto request) {
+    public ResponseEntity<SensorDto> create(@RequestBody @Validated(OnCreate.class) final SensorDto request) {
         var sensor = sensorService.create(request);
         var dto = sensorMapper.toDto(sensor);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -85,7 +86,7 @@ public class SensorController {
                     пердоставляется полный список полей объекта, включая идентификатор"""
     )
     @PutMapping
-    public ResponseEntity<SensorDto> update(@Validated(OnUpdate.class) @RequestBody SensorDto request) {
+    public ResponseEntity<SensorDto> update(@RequestBody @Validated(OnUpdate.class) final SensorDto request) {
         var sensor = sensorService.update(request);
         var dto = sensorMapper.toDto(sensor);
         return ResponseEntity.ok(dto);

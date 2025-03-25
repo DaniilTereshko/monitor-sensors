@@ -1,6 +1,6 @@
 package com.tdi.sensorservice.model;
 
-import com.tdi.sensorservice.model.converter.ObjectConverter;
+import com.tdi.sensorservice.model.converter.RangeConverter;
 import com.tdi.sensorservice.web.dto.RangeDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -33,7 +33,7 @@ public class Sensor {
 
     @Column(nullable = false)
     @JdbcTypeCode(SqlTypes.JSON)
-    @Convert(converter = ObjectConverter.class)
+    @Convert(converter = RangeConverter.class)
     private RangeDto range;
 
     @OneToOne

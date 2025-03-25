@@ -28,8 +28,8 @@ public class SensorDto {
             requiredMode = Schema.RequiredMode.REQUIRED)
     private UUID id;
 
-    @NotBlank(message = NAME_FIELD_IS_EMPTY)
-    @Length(min = 3, max = 30, message = NAME_INCORRECT_LENGTH)
+    @NotBlank(message = NAME_FIELD_IS_EMPTY, groups = {OnCreate.class, OnUpdate.class})
+    @Length(min = 3, max = 30, message = NAME_INCORRECT_LENGTH, groups = {OnCreate.class, OnUpdate.class})
     @Schema(
             description = "Наименование",
             example = "Barometer",
@@ -37,8 +37,8 @@ public class SensorDto {
     )
     private String name;
 
-    @NotBlank(message = MODEL_FIELD_IS_EMPTY)
-    @Length(max = 15, message = MODEL_INCORRECT_LENGTH)
+    @NotBlank(message = MODEL_FIELD_IS_EMPTY, groups = {OnCreate.class, OnUpdate.class})
+    @Length(max = 15, message = MODEL_INCORRECT_LENGTH, groups = {OnCreate.class, OnUpdate.class})
     @Schema(
             description = "Модель",
             example = "ac-23",
@@ -53,7 +53,7 @@ public class SensorDto {
     @Valid
     private RangeDto range;
 
-    @NotBlank(message = TYPE_FIELD_IS_EMPTY)
+    @NotBlank(message = TYPE_FIELD_IS_EMPTY, groups = {OnCreate.class, OnUpdate.class})
     @Schema(
             description = "Тип",
             example = "Temperature",
@@ -69,11 +69,11 @@ public class SensorDto {
     )
     private String unit;
 
-    @Length(max = 40, message = LOCATION_INCORRECT_LENGTH)
+    @Length(max = 40, message = LOCATION_INCORRECT_LENGTH, groups = {OnCreate.class, OnUpdate.class})
     @Schema(description = "Местоположение", example = "kitchen")
     private String location;
 
-    @Length(max = 200, message = DESCRIPTION_INCORRECT_LENGTH)
+    @Length(max = 200, message = DESCRIPTION_INCORRECT_LENGTH, groups = {OnCreate.class, OnUpdate.class})
     @Schema(description = "Описание", example = "description")
     private String description;
 

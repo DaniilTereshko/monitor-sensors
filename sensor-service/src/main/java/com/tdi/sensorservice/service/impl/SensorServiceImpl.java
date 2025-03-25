@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.tdi.sensorservice.common.exception.ResourceNotFoundException.resourceNotFoundException;
@@ -51,7 +52,9 @@ public class SensorServiceImpl implements SensorService {
 
     private Sensor saveOrUpdateSensor(Sensor sensor, SensorDto request) {
         var type = getTypeByNameOrThrow(request.getType());
-        var unit = getUnitByNameOrThrow(request.getUnit());
+        var unit = Optional.ofNullable(request.getUnit())
+                .map(this::getUnitByNameOrThrow)
+                .orElse(null);
 
         sensor.setName(request.getName());
         sensor.setModel(request.getModel());

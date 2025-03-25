@@ -20,12 +20,20 @@ public class RangeDto {
 
     @NotNull(message = RANGE_FROM_IS_NULL, groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0, message = RANGE_FROM_POSITIVE, groups = {OnCreate.class, OnUpdate.class})
-    @Schema(description = "Начальное значение диапазона (должно быть положительным)")
+    @Schema(
+            description = "Начальное значение диапазона (должно быть положительным)",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            defaultValue = "0"
+    )
     private Integer from;
 
     @NotNull(message = RANGE_TO_IS_NULL, groups = {OnCreate.class, OnUpdate.class})
     @Positive(message = RANGE_TO_POSITIVE, groups = {OnCreate.class, OnUpdate.class})
-    @Schema(description = "Конечное значение диапазона (должно быть больше 0)")
+    @Schema(
+            description = "Конечное значение диапазона (должно быть больше 0)",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            defaultValue = "1"
+    )
     private Integer to;
 
     @Schema(hidden = true)

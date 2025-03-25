@@ -12,7 +12,7 @@ public class LocaleConfiguration {
     @Bean
     public AcceptHeaderLocaleResolver localeResolver() {
         var localeResolver = new AcceptHeaderLocaleResolver();
-        localeResolver.setDefaultLocale(Locale.of("ru")); // Default to US English
+        localeResolver.setDefaultLocale(Locale.of("ru"));
         return localeResolver;
     }
 

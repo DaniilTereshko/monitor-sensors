@@ -9,6 +9,7 @@ import com.tdi.sensorservice.web.error.FieldErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -52,25 +53,29 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFoundException(ResourceNotFoundException ex, Locale locale){
-        var message = messageSource.getMessage(ex.getMessage(), null, locale);
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex){
+        var message = getLocalizedMessage(ex.getLocalizedMessage(), ex.getArgs());
         var response = ErrorResponse.of(ErrorCode.USER_ERROR.name(), message);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
-    public ResponseEntity<ErrorResponse> handleBadRequest(Locale locale) {
-        var message = messageSource.getMessage(ExceptionMessage.REQUEST_NOT_READABLE, null, locale);
+    public ResponseEntity<ErrorResponse> handleBadRequest() {
+        var message = getLocalizedMessage(ExceptionMessage.REQUEST_NOT_READABLE);
         var response = ErrorResponse.of(ErrorCode.USER_ERROR.name(), message);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({RuntimeException.class, Error.class, Exception.class})
-    public ResponseEntity<ErrorResponse> handleInnerError(Exception ex, Locale locale) {
+    public ResponseEntity<ErrorResponse> handleInnerError(Exception ex) {
         ex.printStackTrace(); // для отладки
-        var message = messageSource.getMessage(ExceptionMessage.SERVER_INTERNAL_ERROR, null, locale);
+        var message = getLocalizedMessage(ExceptionMessage.SERVER_INTERNAL_ERROR);
         var response = ErrorResponse.of(ErrorCode.SERVER_ERROR.name(), message);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private String getLocalizedMessage(String key, Object... args) {
+        return messageSource.getMessage(key, args, LocaleContextHolder.getLocale());
     }
 
 }
