@@ -19,10 +19,11 @@ public class SecurityUser implements UserDetails {
 
     public SecurityUser(final User user) {
         this(user.getPassword(), user.getUsername(), user.getId());
-        this.authorities.add(mapToGrantedAuthorities("ROLE_USER"));
+        this.authorities.add(mapToGrantedAuthorities(user.getRole().getAuthority()));
     }
 
     public SecurityUser(String password, String username, UUID id) {
+
         this.password = password;
         this.username = username;
         this.id = id;
