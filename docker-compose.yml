@@ -2,8 +2,6 @@ services:
 
   sensor-db:
     image: 'postgres:15.1-alpine'
-    ports:
-      - "5432:5432"
     restart: always
     depends_on:
       - pgadmin
@@ -18,8 +16,6 @@ services:
 
   user-db:
     image: 'postgres:15.1-alpine'
-    ports:
-      - "5433:5432"
     restart: always
     depends_on:
       - pgadmin
@@ -47,12 +43,42 @@ services:
     networks:
       - monitor-sensors
 
+  sensor-service:
+    build: sensor-service
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - sensor-db
+    networks:
+      - monitor-sensors
+
+  user-service:
+    build: user-service
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - user-db
+    networks:
+      - monitor-sensors
+
   swagger-ui:
     image: swaggerapi/swagger-ui
-    ports:
-      - "8088:8080"
     environment:
       URLS: ${SWAGGER_URLS}
+    networks:
+      - monitor-sensors
+
+  proxy:
+    build: proxy
+    depends_on:
+      - user-service
+      - sensor-service
+    ports:
+      - "80:80"
+    networks:
+      - monitor-sensors
 
 volumes:
   db-data:
