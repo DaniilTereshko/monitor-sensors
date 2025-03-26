@@ -47,6 +47,13 @@ services:
     networks:
       - monitor-sensors
 
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8088:8080"
+    environment:
+      URLS: ${SWAGGER_URLS}
+
 volumes:
   db-data:
 
