@@ -1,5 +1,6 @@
 package com.tdi.sensorservice.web.controller;
 
+import com.tdi.sensorservice.model.Sensor;
 import com.tdi.sensorservice.service.SensorService;
 import com.tdi.sensorservice.web.dto.SensorDto;
 import com.tdi.sensorservice.web.dto.marker.OnCreate;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Датчик", description = "Контроллер для базовых операций над датчиками")
@@ -50,6 +53,16 @@ public class SensorController {
         var sensor = sensorService.getById(id);
         var dto = sensorMapper.toDto(sensor);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/search")
+    @SecurityRequirement(name = "JWT")
+    public ResponseEntity<List<SensorDto>> searchDevices(
+            @RequestParam(required = false) String query
+    ) {
+        var searchResult = sensorService.search(query);
+        var dtos = sensorMapper.toDto(searchResult);
+        return ResponseEntity.ok(dtos);
     }
 
     @Operation(
