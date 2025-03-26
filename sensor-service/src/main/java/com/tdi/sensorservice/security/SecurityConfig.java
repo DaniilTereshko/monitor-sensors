@@ -3,6 +3,7 @@ package com.tdi.sensorservice.security;
 import com.tdi.sensorservice.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,11 +19,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private static final String ADMIN = "ADMIN";
     private static final String VIEWER = "VIEWER";
@@ -33,6 +36,8 @@ public class SecurityConfig {
     private static final String[] PUBLIC_ENDPOINTS = {OPEN_API_URI, DOC_PATH_URI};
 
     private final JwtFilter jwtFilter;
+    @Value("${swagger.url}")
+    private String SWAGGER_URL;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -67,6 +72,13 @@ public class SecurityConfig {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins(SWAGGER_URL)
+                .allowedMethods("*");
     }
 
 }
