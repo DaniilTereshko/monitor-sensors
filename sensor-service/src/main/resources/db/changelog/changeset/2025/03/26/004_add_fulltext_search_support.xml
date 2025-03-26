@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="004_add_fulltext_search_support" author="tdi">
+        <addColumn tableName="sensor">
+            <column name="search_vector" type="TSVECTOR"/>
+        </addColumn>
+
+        <sql>
+            UPDATE sensor
+            SET search_vector = TO_TSVECTOR('english', COALESCE(name, '') || ' ' || COALESCE(model, ''));
+        </sql>
+
+        <createIndex
+                tableName="sensor"
+                indexName="sensor_search_idx"
+                unique="false">
+            <column name="search_vector" type="tsvector"/>
+        </createIndex>
+
+        <sqlFile
+                path="./sensor_search_vector_function.sql"
+                relativeToChangelogFile="true"
+                splitStatements="false"
+                stripComments="true"/>
+
+        <sql>
+            CREATE TRIGGER sensor_search_vector_trigger
+            BEFORE INSERT OR UPDATE ON sensor
+            FOR EACH ROW EXECUTE FUNCTION sensor_search_vector_update();
+        </sql>
+    </changeSet>
+</databaseChangeLog>

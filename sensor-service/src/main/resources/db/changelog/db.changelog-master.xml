@@ -8,5 +8,6 @@
     <include file="/changeset/2025/03/24/001_create_type_table.xml" relativeToChangelogFile="true"/>
     <include file="/changeset/2025/03/24/002_create_unit_table.xml" relativeToChangelogFile="true"/>
     <include file="/changeset/2025/03/24/003_create_sensor_table.xml" relativeToChangelogFile="true"/>
+    <include file="/changeset/2025/03/26/004_add_fulltext_search_support.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

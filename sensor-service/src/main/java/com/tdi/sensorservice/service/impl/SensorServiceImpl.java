@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +32,17 @@ public class SensorServiceImpl implements SensorService {
     @Transactional(readOnly = true)
     public Sensor getById(final UUID id) {
         return getOrThrow(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Sensor> search(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return sensorRepository.findAll();
+        }
+
+        var tsQuery = query.trim().replace(" ", " | ") + ":*";
+        return sensorRepository.fullTextSearch(tsQuery);
     }
 
     @Override
