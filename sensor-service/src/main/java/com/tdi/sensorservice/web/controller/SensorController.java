@@ -7,6 +7,7 @@ import com.tdi.sensorservice.web.dto.marker.OnUpdate;
 import com.tdi.sensorservice.web.mapper.SensorMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,7 @@ public class SensorController {
             description = "Позволяет получить датчик по указанному идентификатору"
     )
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "JWT")
     public ResponseEntity<SensorDto> getById(
             @Parameter(description = "Идентификатор", required = true)
             @PathVariable
@@ -56,6 +58,7 @@ public class SensorController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @SecurityRequirement(name = "JWT")
     public ResponseEntity<SensorDto> create(@RequestBody @Validated(OnCreate.class) final SensorDto request) {
         var sensor = sensorService.create(request);
         var dto = sensorMapper.toDto(sensor);
@@ -69,6 +72,7 @@ public class SensorController {
     )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @SecurityRequirement(name = "JWT")
     public ResponseEntity<?> delete(
             @Parameter(description = "Идентификатор", required = true)
             @PathVariable
@@ -86,6 +90,7 @@ public class SensorController {
                     пердоставляется полный список полей объекта, включая идентификатор"""
     )
     @PutMapping
+    @SecurityRequirement(name = "JWT")
     public ResponseEntity<SensorDto> update(@RequestBody @Validated(OnUpdate.class) final SensorDto request) {
         var sensor = sensorService.update(request);
         var dto = sensorMapper.toDto(sensor);

@@ -30,8 +30,6 @@ public class SecurityConfig implements WebMvcConfigurer {
     public static final String OPEN_API_URI = "/swagger-ui/**";
     public static final String DOC_PATH_URI = "/v3/api-docs/**";
     private final JwtFilter jwtFilter;
-    @Value("${swagger.url}")
-    private String SWAGGER_URL;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -67,13 +65,6 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins(SWAGGER_URL)
-                .allowedMethods("*");
     }
 
 }

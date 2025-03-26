@@ -3,6 +3,7 @@ package com.tdi.sensorservice.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +17,12 @@ public class OpenApiConfig {
                         .title("API датчиков системы мониторинга")
                         .contact(new Contact()
                                 .name("Daniil Tereshko")
-                                .email("daniiltereshko123@gmail.com")));
+                                .email("daniiltereshko123@gmail.com")))
+                .schemaRequirement("JWT", new SecurityScheme()
+                        .name("JWT")
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT"));
     }
 
 }
