@@ -55,9 +55,14 @@ public class SensorController {
         return ResponseEntity.ok(dto);
     }
 
+    @Operation(
+            summary = "Поиск датчиков",
+            description = "Позволяет получить список датчиков путем полнотекстового поиска по полям name и model. " +
+                    "Поддерживает только английский язык"
+    )
     @GetMapping("/search")
     @SecurityRequirement(name = "JWT")
-    public ResponseEntity<List<SensorDto>> searchDevices(
+    public ResponseEntity<List<SensorDto>> search(
             @RequestParam(required = false) String query
     ) {
         var searchResult = sensorService.search(query);
